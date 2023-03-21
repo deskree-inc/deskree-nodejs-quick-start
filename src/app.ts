@@ -6,20 +6,16 @@
  */
 
 import * as express from 'express';
-// @ts-ignore
-import {Logger} from "@deskree-inc/logger";
 
 export class App {
-    private logger;
     public app: express.Application
     public port: number
 
-    constructor(appInit: { port: number; middleWares: any; controllers: any; }) {
+    constructor(appInit: { port: number; middleWares: Array<any>; controllers: Array<any>; }) {
         this.app = express();
         this.port = appInit.port;
         this.middlewares(appInit.middleWares);
         this.routes(appInit.controllers);
-        this.logger = new Logger();
     }
 
     private middlewares(middleWares: { forEach: (arg0: (middleWare: any) => void) => void; }) {
@@ -30,19 +26,12 @@ export class App {
 
     private routes(controllers: { forEach: (arg0: (controller: any) => void) => void; }) {
         controllers.forEach(controller => {
-            // @ts-ignore
-            this.app.use(process.env.APP_BASE_PATH, controller.router)
+            this.app.use(process.env.APP_BASE_PATH as string, controller.router)
         })
     }
 
     public listen() {
         this.app.listen(this.port);
-        this.logger.log(this.logger.notice, {
-            code: 200, details: `Express App has started. API listening at port ${this.port}`
-        }, {
-            file: 'app.ts',
-            line: '37',
-            function: 'listen'
-        });
+        console.info(`Express App has started. API listening at port ${this.port}`)
     }
 }

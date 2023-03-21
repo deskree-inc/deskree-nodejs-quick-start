@@ -11,7 +11,7 @@ import * as cors from "cors";
 import {PostmanController} from "./controllers/postmanController";
 
 const api = new App({
-    port: 5000,
+    port: 8000,
     controllers: [
         new PostmanController()
     ],
