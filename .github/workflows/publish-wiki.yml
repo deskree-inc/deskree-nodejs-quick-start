@@ -1,0 +1,35 @@
+name: GitHub Wiki
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  wiki:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://npm.pkg.github.com/
+          scope: '@deskree-inc'
+
+      - name: Install NPM Dependencies
+        run: npm install
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GH_ACCESS_TOKEN}}
+
+      - name: Generate .md documentation
+        run: npm run docs
+
+      - name: Upload Documentation to Wiki
+        uses: Andrew-Chen-Wang/github-wiki-action@v2
+        env:
+          WIKI_DIR: wiki/
+          GH_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+          GH_MAIL: ${{ secrets.YOUR_EMAIL }}
+          GH_NAME: ${{ secrets.GH_NAME }}
