@@ -7,19 +7,16 @@
 
 import * as express from "express";
 import {App} from "./app";
-// @ts-ignore
 import * as cors from "cors";
-// @ts-ignore
-import {LatencyMeasure} from "@deskree-inc/logger";
-
-const latencyMeasure = new LatencyMeasure();
+import {PostmanController} from "./controllers/postmanController";
 
 const api = new App({
     port: 5000,
-    controllers: [],
+    controllers: [
+        new PostmanController()
+    ],
     middleWares: [
         cors(),
-        latencyMeasure.addProcessedTime,
         express.json()
     ]
 });

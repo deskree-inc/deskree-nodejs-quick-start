@@ -18,17 +18,8 @@ export class PostmanModel extends BaseModel {
      * Get Postman Collection
      * @return array of blogs
      */
-    public getPostmanCollection() {
-        try {
-            const collection = fs.readFileSync('./collection.json');
-            return JSON.parse(collection.toString());
-        } catch (e) {
-            this.logger.log(this.logger.message.error, e.message, {
-                file: 'postmanModel.ts',
-                line: '24',
-                function: 'getPostmanCollection'
-            });
-            throw e;
-        }
+    public async getPostmanCollection() {
+        const collection = fs.readFileSync('./collection.json');
+        return JSON.parse(collection.toString());
     }
 }

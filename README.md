@@ -11,22 +11,11 @@ The project has the following directory structure:
 
 ```
 .
-+-- .github - contains GitHub Actions files
-|   +-- workflows
-|      +-- publish-wiki.yml - GitHub action to generate and publish code documentation
-|      +-- test.yml - GitHub action to run unit tests upon push
-+-- src - contains all functional files
-|   +-- ___test___ - unit test files for JEST
-|      +-- integration - directory for all integration tests
-|          +-- controllers - directory for all controller integration tests
-|              +-- postmanController.test.ts - integration test for postmanController
-|      +-- unit - directory for all unit tests
-|          +-- models - directory for all models unit tests
-|              +-- postmanModel.test.ts - unit test for postmanModel
-|          +-- app.test.ts - unit test of express base class
-|   +-- controllers - API controllers responsible for routing endpoints to particular models
-|      +-- expressController.ts - main express controller for routing extends PostmanController from @deskree/postman-collection-generator
-|      +-- postmanController.ts - controller handling getting Postman collection
++-- .github - folder to put your GitHub actions
++-- src - source code
+|   +-- controllers - API controllers
+|      +-- baseController.ts - base controller class
+|      +-- postmanController.ts - controller for getting Postman collection
 |   +-- interfaces - API interfaces for requests and response data
 |      +-- IControllerBase.ts - base interface object
 |   +-- models - models reserved for business logic
